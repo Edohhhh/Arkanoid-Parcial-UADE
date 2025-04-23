@@ -24,9 +24,12 @@ public class CustomUpdateManager : MonoBehaviour
 
     void LateUpdate()
     {
-        foreach (var obj in updatables)
+   
+        var copy = new List<ICustomUpdate>(updatables);
+        foreach (var obj in copy)
         {
             obj.CustomUpdate();
         }
     }
+
 }

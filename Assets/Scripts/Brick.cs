@@ -16,6 +16,8 @@ public class Brick : MonoBehaviour
 
     private Renderer rend;
 
+    public ObjectPool powerUpPool;
+
     private void Start()
     {
         rend = GetComponent<Renderer>();
@@ -41,21 +43,23 @@ public class Brick : MonoBehaviour
 
         if (hitsToBreak <= 0)
         {
-            Destroy(gameObject);
-        }
-        else
-        {
-            UpdateMaterial();
-        }
-
-        if (hitsToBreak <= 0)
-        {
             if (hasPowerUp && powerUpPrefab != null)
             {
-                Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+                if (powerUpPool != null)
+                {
+                    GameObject p = powerUpPool.GetFromPool(transform.position);
+                    PowerUp pScript = p.GetComponent<PowerUp>();
+                    pScript.pool = powerUpPool;
+                }
+                else
+                {
+                    GameObject p = Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+                }
             }
+
             Destroy(gameObject);
         }
+
 
     }
 

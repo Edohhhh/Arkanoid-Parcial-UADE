@@ -7,6 +7,8 @@ public class Ball : MonoBehaviour, ICustomUpdate
     private bool launched = false;
     private Vector3 direction;
 
+    public bool isMainBall = false;
+
     private void OnEnable()
     {
         CustomUpdateManager.Register(this);
@@ -45,11 +47,19 @@ public class Ball : MonoBehaviour, ICustomUpdate
              
             }
 
-            
+            //Agregado
             if (transform.position.y < -5f)
             {
-                launched = false;
+                if (isMainBall)
+                {
+                    launched = false; // se reinicia
+                }
+                else
+                {
+                    Destroy(gameObject); // desaparece si es bola extra
+                }
             }
+
         }
 
         Brick[] bricks = Object.FindObjectsByType<Brick>(FindObjectsSortMode.None);
