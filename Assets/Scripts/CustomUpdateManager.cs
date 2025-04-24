@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ public interface ICustomUpdate
 
 public class CustomUpdateManager : MonoBehaviour
 {
-    private static List<ICustomUpdate> updatables = new List<ICustomUpdate>();
+    private static readonly List<ICustomUpdate> updatables = new List<ICustomUpdate>();
+    private static readonly List<ICustomUpdate> tempCopy = new List<ICustomUpdate>(); // Lista temporal reutilizable
 
     public static void Register(ICustomUpdate obj)
     {
@@ -24,12 +26,12 @@ public class CustomUpdateManager : MonoBehaviour
 
     void LateUpdate()
     {
-   
-        var copy = new List<ICustomUpdate>(updatables);
-        foreach (var obj in copy)
+        tempCopy.Clear();                 // Limpiar antes de reutilizar
+        tempCopy.AddRange(updatables);   // Copiar referencias sin generar allocaciones
+
+        foreach (var obj in tempCopy)
         {
-            obj.CustomUpdate();
+            obj.CustomUpdate();          // Llamar a la función personalizada
         }
     }
-
 }

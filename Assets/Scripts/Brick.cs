@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Brick : MonoBehaviour
 {
@@ -14,6 +17,8 @@ public class Brick : MonoBehaviour
     public bool hasPowerUp = false;
     public GameObject powerUpPrefab;
 
+    public float dropChance = 30f; // porcentaje (0 a 100)
+
     private Renderer rend;
 
     public ObjectPool powerUpPool;
@@ -21,7 +26,7 @@ public class Brick : MonoBehaviour
     private void Start()
     {
         rend = GetComponent<Renderer>();
-        UpdateMaterial();
+        //UpdateMaterial();
     }
 
     public bool CheckCollision(Vector3 ballPos, float ballRadius)
@@ -41,36 +46,40 @@ public class Brick : MonoBehaviour
     {
         hitsToBreak--;
 
+        //UpdateMaterial();
+
         if (hitsToBreak <= 0)
         {
+            // Solo intenta tirar powerup si tiene asignado un prefab
             if (hasPowerUp && powerUpPrefab != null)
             {
-                if (powerUpPool != null)
+                float chance = Random.Range(0f, 100f);
+                if (chance <= dropChance)
                 {
-                    GameObject p = powerUpPool.GetFromPool(transform.position);
-                    PowerUp pScript = p.GetComponent<PowerUp>();
-                    pScript.pool = powerUpPool;
-                }
-                else
-                {
-                    GameObject p = Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+                    if (powerUpPool != null)
+                    {
+                        GameObject p = powerUpPool.GetFromPool(transform.position);
+                        PowerUp pScript = p.GetComponent<PowerUp>();
+                        pScript.pool = powerUpPool;
+                    }
+                    else
+                    {
+                        Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+                    }
                 }
             }
 
             Destroy(gameObject);
         }
-
-
     }
 
-    private void UpdateMaterial()
-    {
-        if (hitsToBreak == 3 && mat3 != null)
-            rend.material = mat3;
-        else if (hitsToBreak == 2 && mat2 != null)
-            rend.material = mat2;
-        else if (hitsToBreak == 1 && mat1 != null)
-            rend.material = mat1;
-    }
+    //private void UpdateMaterial()
+    //{
+    //    if (hitsToBreak == 3 && mat3 != null)
+    //        rend.material = mat3;
+    //    else if (hitsToBreak == 2 && mat2 != null)
+    //        rend.material = mat2;
+    //    else if (hitsToBreak == 1 && mat1 != null)
+    //        rend.material = mat1;
+    //}
 }
-

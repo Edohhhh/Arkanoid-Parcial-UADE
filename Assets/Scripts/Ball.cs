@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class Ball : MonoBehaviour, ICustomUpdate
@@ -23,6 +26,7 @@ public class Ball : MonoBehaviour, ICustomUpdate
     {
         if (!launched)
         {
+            // Mantener bola pegada a la paleta
             transform.position = paddle.position + new Vector3(0, 0.5f, 0);
 
             if (Input.GetKeyDown(KeyCode.Space))
@@ -34,34 +38,65 @@ public class Ball : MonoBehaviour, ICustomUpdate
         }
         else
         {
+            
             transform.position += direction * speed * Time.deltaTime;
 
             
-            if (Mathf.Abs(transform.position.x) > 8f) direction.x *= -1;
-            if (transform.position.y > 5f) direction.y *= -1;
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 
-          
-            if (CheckCollisionWithPaddle())
+            
+            ColliderAABB[] colliders = Object.FindObjectsByType<ColliderAABB>(FindObjectsSortMode.None);
+            foreach (ColliderAABB col in colliders)
             {
-                direction.y = Mathf.Abs(direction.y); 
-             
+                Vector3 colPos = col.transform.position;
+                Vector3 colScale = col.transform.localScale;
+
+                if (transform.position.x > colPos.x - colScale.x / 2f &&
+                    transform.position.x < colPos.x + colScale.x / 2f &&
+                    transform.position.y > colPos.y - colScale.y / 2f &&
+                    transform.position.y < colPos.y + colScale.y / 2f)
+                {
+                    if (col.type == ColliderAABB.ColliderType.Wall)
+                    {
+                        direction.x *= -1;
+                    }
+                    else if (col.type == ColliderAABB.ColliderType.Ceiling)
+                    {
+                        direction.y = -Mathf.Abs(direction.y);
+                    }
+                }
             }
 
-            //Agregado
+            // Calculo de fisicas rebote pelota en paleta
+            if (CheckCollisionWithPaddle())
+            {
+                float relativeX = transform.position.x - paddle.position.x;
+                float paddleWidth = 2f;
+                float maxAngle = 60f;
+
+                float normalized = Mathf.Clamp(relativeX / (paddleWidth / 2f), -1f, 1f);
+                float angle = normalized * maxAngle;
+
+                float angleRad = angle * Mathf.Deg2Rad;
+
+                direction = new Vector3(Mathf.Sin(angleRad), Mathf.Cos(angleRad), 0).normalized;
+            }
+
+            // Caída por debajo del límite
             if (transform.position.y < -5f)
             {
                 if (isMainBall)
                 {
-                    launched = false; // se reinicia
+                    launched = false;
                 }
                 else
                 {
-                    Destroy(gameObject); // desaparece si es bola extra
+                    Destroy(gameObject);
                 }
             }
-
         }
 
+        // Colisiones con bricks
         Brick[] bricks = Object.FindObjectsByType<Brick>(FindObjectsSortMode.None);
         foreach (Brick brick in bricks)
         {
@@ -72,7 +107,6 @@ public class Ball : MonoBehaviour, ICustomUpdate
                 break;
             }
         }
-
     }
 
     public void ForceLaunch()
@@ -84,7 +118,6 @@ public class Ball : MonoBehaviour, ICustomUpdate
             launched = true;
         }
     }
-
 
     private bool CheckCollisionWithPaddle()
     {
@@ -103,4 +136,3 @@ public class Ball : MonoBehaviour, ICustomUpdate
         return withinX && withinY;
     }
 }
-
