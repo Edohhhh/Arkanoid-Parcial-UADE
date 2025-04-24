@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
@@ -12,91 +12,81 @@ public class Ball : MonoBehaviour, ICustomUpdate
 
     public bool isMainBall = false;
 
-    private void OnEnable()
-    {
-        CustomUpdateManager.Register(this);
-    }
-
-    private void OnDisable()
-    {
-        CustomUpdateManager.Unregister(this);
-    }
+    private void OnEnable() => CustomUpdateManager.Register(this);
+    private void OnDisable() => CustomUpdateManager.Unregister(this);
 
     public void CustomUpdate()
     {
         if (!launched)
         {
-            // Mantener bola pegada a la paleta
+            
             transform.position = paddle.position + new Vector3(0, 0.5f, 0);
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 float randomX = Random.Range(-1f, 1f);
                 direction = new Vector3(randomX, 1, 0).normalized;
+                direction.y = Mathf.Abs(direction.y); 
                 launched = true;
             }
         }
         else
         {
-            
+          
             transform.position += direction * speed * Time.deltaTime;
 
-            
+           
             transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 
-            
+         
             ColliderAABB[] colliders = Object.FindObjectsByType<ColliderAABB>(FindObjectsSortMode.None);
             foreach (ColliderAABB col in colliders)
             {
-                Vector3 colPos = col.transform.position;
-                Vector3 colScale = col.transform.localScale;
-
-                if (transform.position.x > colPos.x - colScale.x / 2f &&
-                    transform.position.x < colPos.x + colScale.x / 2f &&
-                    transform.position.y > colPos.y - colScale.y / 2f &&
-                    transform.position.y < colPos.y + colScale.y / 2f)
+                if (col.TryGetComponent<Renderer>(out Renderer renderer))
                 {
-                    if (col.type == ColliderAABB.ColliderType.Wall)
+                    Bounds bounds = renderer.bounds;
+
+                    if (bounds.Contains(transform.position))
                     {
-                        direction.x *= -1;
-                    }
-                    else if (col.type == ColliderAABB.ColliderType.Ceiling)
-                    {
-                        direction.y = -Mathf.Abs(direction.y);
+                        if (col.type == ColliderAABB.ColliderType.Wall)
+                            direction.x *= -1;
+                        else if (col.type == ColliderAABB.ColliderType.Ceiling)
+                            direction.y = -Mathf.Abs(direction.y);
                     }
                 }
             }
 
-            // Calculo de fisicas rebote pelota en paleta
+            
             if (CheckCollisionWithPaddle())
             {
                 float relativeX = transform.position.x - paddle.position.x;
-                float paddleWidth = 2f;
-                float maxAngle = 60f;
+                float paddleWidth = 3.5f;
 
+                float maxAngle = 60f;
                 float normalized = Mathf.Clamp(relativeX / (paddleWidth / 2f), -1f, 1f);
                 float angle = normalized * maxAngle;
-
                 float angleRad = angle * Mathf.Deg2Rad;
 
                 direction = new Vector3(Mathf.Sin(angleRad), Mathf.Cos(angleRad), 0).normalized;
+                direction.y = Mathf.Abs(direction.y);
             }
 
-            // Caída por debajo del límite
+
             if (transform.position.y < -5f)
             {
                 if (isMainBall)
                 {
-                    launched = false;
+                    LivesManager.Instance.LoseLife();
+                    launched = false; 
                 }
                 else
                 {
-                    Destroy(gameObject);
+                    Destroy(gameObject); 
                 }
             }
         }
 
-        // Colisiones con bricks
+        
         Brick[] bricks = Object.FindObjectsByType<Brick>(FindObjectsSortMode.None);
         foreach (Brick brick in bricks)
         {
@@ -115,6 +105,7 @@ public class Ball : MonoBehaviour, ICustomUpdate
         {
             float randomX = Random.Range(-1f, 1f);
             direction = new Vector3(randomX, 1, 0).normalized;
+            direction.y = Mathf.Abs(direction.y);
             launched = true;
         }
     }
@@ -124,7 +115,7 @@ public class Ball : MonoBehaviour, ICustomUpdate
         Vector3 ballPos = transform.position;
         Vector3 paddlePos = paddle.position;
 
-        float paddleWidth = 2f;
+        float paddleWidth = 3.5f;
         float paddleHeight = 0.5f;
         float ballRadius = 0.25f;
 

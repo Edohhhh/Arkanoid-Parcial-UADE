@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -7,50 +7,54 @@ public class Brick : MonoBehaviour
 {
     public int hitsToBreak = 3;
 
-    public Material mat3;
-    public Material mat2;
-    public Material mat1;
-
     public float width = 1f;
     public float height = 0.5f;
 
     public bool hasPowerUp = false;
     public GameObject powerUpPrefab;
 
-    public float dropChance = 30f; // porcentaje (0 a 100)
-
-    private Renderer rend;
+    public float dropChance = 30f; 
 
     public ObjectPool powerUpPool;
 
+    public SetAtlasTile atlasTile;
+
     private void Start()
     {
-        rend = GetComponent<Renderer>();
-        //UpdateMaterial();
+        if (atlasTile != null)
+        {
+            atlasTile.atlasColumn = hitsToBreak - 1;
+            atlasTile.ApplyTile();
+        }
     }
 
     public bool CheckCollision(Vector3 ballPos, float ballRadius)
     {
-        Vector3 pos = transform.position;
+        if (!TryGetComponent<Renderer>(out Renderer renderer))
+            return false;
 
-        bool withinX = ballPos.x + ballRadius > pos.x - width / 2 &&
-                       ballPos.x - ballRadius < pos.x + width / 2;
+        Bounds bounds = renderer.bounds;
 
-        bool withinY = ballPos.y + ballRadius > pos.y - height / 2 &&
-                       ballPos.y + ballRadius < pos.y + height / 2;
+        
+        bounds.Expand(ballRadius * 2f);
 
-        return withinX && withinY;
+        return bounds.Contains(ballPos);
     }
 
     public void TakeHit()
     {
         hitsToBreak--;
 
-        //UpdateMaterial();
+        if (atlasTile != null)
+        {
+            atlasTile.atlasColumn = hitsToBreak - 1;
+            atlasTile.ApplyTile();
+        }
 
         if (hitsToBreak <= 0)
         {
-            // Solo intenta tirar powerup si tiene asignado un prefab
+            if (ScoreManager.Instance != null)
+                ScoreManager.Instance.AddPoints(1);
             if (hasPowerUp && powerUpPrefab != null)
             {
                 float chance = Random.Range(0f, 100f);
@@ -59,12 +63,13 @@ public class Brick : MonoBehaviour
                     if (powerUpPool != null)
                     {
                         GameObject p = powerUpPool.GetFromPool(transform.position);
+                        p.transform.rotation = Quaternion.Euler(0f, 0f, 90f); 
                         PowerUp pScript = p.GetComponent<PowerUp>();
                         pScript.pool = powerUpPool;
                     }
                     else
                     {
-                        Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
+                        Instantiate(powerUpPrefab, transform.position, Quaternion.Euler(90f, 0f, 0f)); 
                     }
                 }
             }
@@ -72,14 +77,4 @@ public class Brick : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    //private void UpdateMaterial()
-    //{
-    //    if (hitsToBreak == 3 && mat3 != null)
-    //        rend.material = mat3;
-    //    else if (hitsToBreak == 2 && mat2 != null)
-    //        rend.material = mat2;
-    //    else if (hitsToBreak == 1 && mat1 != null)
-    //        rend.material = mat1;
-    //}
 }

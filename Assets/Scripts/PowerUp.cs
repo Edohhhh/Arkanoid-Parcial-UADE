@@ -36,7 +36,7 @@ public class PowerUp : MonoBehaviour, ICustomUpdate
         if (paddle != null)
         {
             Vector3 paddlePos = paddle.transform.position;
-            float paddleWidth = 2f;
+            float paddleWidth = 3.5f;
             float paddleHeight = 0.5f;
             float radius = 0.3f;
 

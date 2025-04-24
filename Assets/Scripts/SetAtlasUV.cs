@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteAlways] // Ejecuta en modo editor
 [RequireComponent(typeof(MeshRenderer))]
 public class SetAtlasTile : MonoBehaviour
 {
@@ -12,27 +11,19 @@ public class SetAtlasTile : MonoBehaviour
     public int columns = 3;
     public int rows = 2;
 
-    private int prevCol = -1;
-    private int prevRow = -1;
-
-    void Update()
+    private void OnValidate()
     {
-        // Solo actualiza si cambió algo
-        if (atlasColumn != prevCol || atlasRow != prevRow)
-        {
-            ApplyTile();
-            prevCol = atlasColumn;
-            prevRow = atlasRow;
-        }
+        
+        ApplyTile();
     }
 
-    void ApplyTile()
+    public void ApplyTile()
     {
         MeshRenderer renderer = GetComponent<MeshRenderer>();
 
         if (renderer.sharedMaterial == null) return;
 
-        // IMPORTANTE: usar .sharedMaterial para no duplicar materiales cada frame en editor
+        
         Material mat = Application.isPlaying ? renderer.material : renderer.sharedMaterial;
 
         Vector2 tiling = new Vector2(1f / columns, 1f / rows);
@@ -42,3 +33,4 @@ public class SetAtlasTile : MonoBehaviour
         mat.mainTextureOffset = offset;
     }
 }
+
