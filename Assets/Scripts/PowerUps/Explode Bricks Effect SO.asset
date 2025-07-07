@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db6b42f90b46a346bc70fb3c606a907, type: 3}
   m_Name: Explode Bricks Effect SO
   m_EditorClassIdentifier: 
+  explosiveDuration: 5

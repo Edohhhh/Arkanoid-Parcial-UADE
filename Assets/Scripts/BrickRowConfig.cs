@@ -5,8 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class BrickRowConfig
 {
-    [Range(1, 3)] public int hitsToBreak = 1;
-
-    [Tooltip("Columna del atlas (color visual) asociada a este nivel de golpe")]
-    public int atlasColumn = 0;
+    public int hits = 1;
+    public Color color = Color.white;
 }

@@ -4,20 +4,44 @@ using System.Collections;
 [CreateAssetMenu(menuName = "PowerUps/EnlargePaddle")]
 public class EnlargePaddleEffectSO : PowerUpEffectSO
 {
+    public float scaleMultiplier = 2f;
     public float duration = 5f;
-    public float scaleMultiplier = 1.5f;
+    public float growSpeed = 2f; // cuanto más alto, más rápido se agranda
 
     public override void ApplyEffect()
     {
-        GameManager.Instance.StartCoroutine(Enlarge());
+        var paddle = GameManager.Instance.paddleTransform;
+        if (paddle == null) return;
+
+        GameManager.Instance.StartCoroutine(AnimateScale(paddle));
     }
 
-    private IEnumerator Enlarge()
+    private IEnumerator AnimateScale(Transform paddle)
     {
-        Transform paddle = GameManager.Instance.paddleTransform;
-        Vector3 original = paddle.localScale;
-        paddle.localScale = new Vector3(original.x * scaleMultiplier, original.y, original.z);
+        Vector3 originalScale = paddle.localScale;
+        Vector3 targetScale = new Vector3(originalScale.x * scaleMultiplier, originalScale.y, originalScale.z);
+
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * growSpeed;
+            paddle.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            yield return null;
+        }
+
+        paddle.localScale = targetScale;
+
         yield return new WaitForSeconds(duration);
-        paddle.localScale = original;
+
+        // Restaurar suavemente
+        t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * growSpeed;
+            paddle.localScale = Vector3.Lerp(targetScale, originalScale, t);
+            yield return null;
+        }
+
+        paddle.localScale = originalScale;
     }
 }

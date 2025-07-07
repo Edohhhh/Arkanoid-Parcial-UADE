@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -14,19 +15,23 @@ public class GameManager : MonoBehaviour
     public ObjectPool brickPool;
     public ObjectPool powerUpPool;
     public GameObject powerUpPrefab;
+    public ObjectPool ballPool;
 
-    [Header("Configuración")]
+    [Header("Configuración de grilla")]
     public int rows = 5;
     public int columns = 10;
     public float spacing = 1.1f;
+
+    [Header("Config. de dificultad por fila")]
+    public List<BrickRowConfig> rowConfigs = new();
+
+    [Header("PowerUp Drop Config")]
+    public PowerUpDropTable dropTable;
 
     public int bricksLeft = 0;
     private PaddleLogic paddle;
     private BallLogic ball;
     private List<BrickInstance> bricks = new();
-
-    [Header("PowerUp Drop Config")]
-    public PowerUpDropTable dropTable;
 
     private void Awake()
     {
@@ -66,6 +71,15 @@ public class GameManager : MonoBehaviour
 
         for (int row = 0; row < rows; row++)
         {
+            int hits = 1;
+            Color color = Color.white;
+
+            if (row < rowConfigs.Count)
+            {
+                hits = rowConfigs[row].hits;
+                color = rowConfigs[row].color;
+            }
+
             for (int col = 0; col < columns; col++)
             {
                 Vector3 pos = bricksStartPoint.position + new Vector3(col * spacing, -row * spacing, 0);
@@ -74,7 +88,7 @@ public class GameManager : MonoBehaviour
                 brickGO.SetActive(true);
 
                 var atlas = brickGO.GetComponent<SetAtlasTile>();
-                int hits = Random.Range(1, 4);
+
                 bool hasPower = Random.Range(0f, 1f) < 0.2f;
 
                 BrickInstance brick = new BrickInstance(
@@ -86,11 +100,18 @@ public class GameManager : MonoBehaviour
                     atlas
                 );
 
+                if (atlas != null)
+                {
+                    atlas.atlasColumn = hits - 1;
+                    atlas.ApplyTile();
+                }
+
                 bricks.Add(brick);
                 bricksLeft++;
             }
         }
     }
+
 
     public void TrySpawnPowerUp(Vector3 position)
     {
@@ -120,6 +141,10 @@ public class GameManager : MonoBehaviour
     public void LoseLife()
     {
         // Vidas - reinicio - Game Over
+    }
+    public BallLogic GetMainBallLogic()
+    {
+        return ball;
     }
 
     public List<BrickInstance> GetBrickList()

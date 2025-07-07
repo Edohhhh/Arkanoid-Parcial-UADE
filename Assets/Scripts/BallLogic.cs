@@ -12,6 +12,9 @@ public class BallLogic : ICustomUpdate
     private Vector3 direction;
     private bool launched = false;
 
+    private bool isExplosive = false;
+    private float explosiveTimer = 0f;
+
     private const float ballRadius = 0.25f;
 
     public List<BrickInstance> bricks = new();
@@ -19,6 +22,12 @@ public class BallLogic : ICustomUpdate
     public void SetBricks(List<BrickInstance> brickList)
     {
         this.bricks = brickList;
+    }
+
+    public void ActivateExplosiveMode(float duration)
+    {
+        isExplosive = true;
+        explosiveTimer = duration;
     }
 
     public void CustomUpdate()
@@ -40,6 +49,13 @@ public class BallLogic : ICustomUpdate
             float moveStep = speed * Time.deltaTime;
             int subSteps = 4;
             float stepSize = moveStep / subSteps;
+
+            if (isExplosive)
+            {
+                explosiveTimer -= Time.deltaTime;
+                if (explosiveTimer <= 0f)
+                    isExplosive = false;
+            }
 
             for (int i = 0; i < subSteps; i++)
             {
@@ -106,19 +122,26 @@ public class BallLogic : ICustomUpdate
 
             if (brick.CheckCollision(transform.position, ballRadius))
             {
-                brick.TakeHit();
-
-                
-                if (brick.IsActive())
+                if (isExplosive)
                 {
-                    direction.y *= -1;
+                    brick.DestroyCompletely();
+                    GameManager.Instance.AddPoints(1);
+                    GameManager.Instance.BrickDestroyed();
                 }
                 else
                 {
-                    
-                    GameManager.Instance.AddPoints(1);
-                    GameManager.Instance.BrickDestroyed();
-                    brick.gameObject.SetActive(false);
+                    brick.TakeHit();
+
+                    if (brick.IsActive())
+                    {
+                        direction.y *= -1;
+                    }
+                    else
+                    {
+                        GameManager.Instance.AddPoints(1);
+                        GameManager.Instance.BrickDestroyed();
+                        brick.gameObject.SetActive(false);
+                    }
                 }
 
                 return true;
@@ -158,3 +181,5 @@ public class BallLogic : ICustomUpdate
         direction.y = Mathf.Abs(direction.y);
     }
 }
+
+
