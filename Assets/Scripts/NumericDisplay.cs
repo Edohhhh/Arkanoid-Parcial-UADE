@@ -1,52 +1,39 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class NumericDisplay : MonoBehaviour
 {
+    [Header("Sprites")]
+    public Sprite[] digits;
 
+    [Header("Referencia visual")]
+    public GameObject digitPrefab;
+    public Transform digitParent;
 
-    [Header("Referencias")]
-    public GameObject digitPrefab;     
-    public Transform digitParent;      
+    private List<GameObject> currentDigits = new();
 
-    [Header("Sprites del 0 al 9")]
-    public Sprite[] digitSprites;     
-
-    private List<GameObject> currentDigits = new List<GameObject>();
-
-
-    private void OnEnable()
+    public void SetNumber(int value)
     {
-        if (LivesManager.Instance != null)
+        foreach (var digitGO in currentDigits)
+            Destroy(digitGO);
+
+        currentDigits.Clear();
+
+        string str = Mathf.Max(0, value).ToString();
+
+        foreach (char c in str)
         {
-            LivesManager.Instance.livesDisplay = this;
-            LivesManager.Instance.ForceRefresh();
+            GameObject newDigit = Instantiate(digitPrefab, digitParent);
+            int index = c - '0';
+            newDigit.GetComponent<Image>().sprite = digits[index];
+            currentDigits.Add(newDigit);
         }
     }
 
-    public void UpdateDisplay(int number)
+    public void Refresh()
     {
-        
-        foreach (var digit in currentDigits)
-        {
-            Destroy(digit);
-        }
-        currentDigits.Clear();
-
-       
-        string scoreStr = number.ToString();
-
-        
-        foreach (char c in scoreStr)
-        {
-            int digit = c - '0';
-
-            GameObject go = Instantiate(digitPrefab, digitParent);
-            go.GetComponent<Image>().sprite = digitSprites[digit];
-
-            currentDigits.Add(go);
-        }
+        // placeholder opcional si querés refrescar en algún momento
     }
 }

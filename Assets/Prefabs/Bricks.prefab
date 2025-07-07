@@ -74,9 +74,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5216cf430ddf17c4c91ddacf1ffa1f9f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5164736283051396383}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5216cf430ddf17c4c91ddacf1ffa1f9f, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1318589518886299342}
   m_SourcePrefab: {fileID: 100100000, guid: 5216cf430ddf17c4c91ddacf1ffa1f9f, type: 3}
 --- !u!1 &5200410115581085957 stripped
@@ -84,28 +81,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5216cf430ddf17c4c91ddacf1ffa1f9f, type: 3}
   m_PrefabInstance: {fileID: 4966054920735306836}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5164736283051396383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5200410115581085957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26c0863f2490b72409d73ff887fc8cd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitsToBreak: 2
-  mat3: {fileID: 2100000, guid: a9424ecde8bb38b4fa01e5e65704c85f, type: 2}
-  mat2: {fileID: 2100000, guid: e3161aa8690606e4fb6673d1d45cc010, type: 2}
-  mat1: {fileID: 2100000, guid: 2ee02030def587743a34979bcfa54a92, type: 2}
-  width: 1
-  height: 0.5
-  hasPowerUp: 1
-  powerUpPrefab: {fileID: 6504920648491059321, guid: c35ed40bfc07efe47b189b260aed8b42, type: 3}
-  dropChance: 20
-  powerUpPool: {fileID: 0}
 --- !u!114 &1318589518886299342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +88,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5200410115581085957}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f63c248cfba07b40830bb8b96dd83fa, type: 3}
   m_Name: 

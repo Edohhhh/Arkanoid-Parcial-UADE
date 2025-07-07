@@ -2,31 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Paddle : MonoBehaviour, ICustomUpdate
+public class PaddleLogic : ICustomUpdate
 {
+    public Transform transform;
     public float speed = 10f;
-
-    private void OnEnable() => CustomUpdateManager.Register(this);
-    private void OnDisable() => CustomUpdateManager.Unregister(this);
 
     public void CustomUpdate()
     {
         float input = Input.GetAxisRaw("Horizontal");
         Vector3 movement = new Vector3(input, 0, 0) * speed * Time.deltaTime;
 
-        
         Vector3 newPosition = transform.position + movement;
-
-        
-        Vector3 halfSize = GetComponent<Renderer>().bounds.extents;
-
-        
+        Vector3 halfSize = GetRendererBoundsExtents(transform);
         Bounds paddleBounds = new Bounds(newPosition, halfSize * 2);
 
-       
         bool canMove = true;
-        ColliderAABB[] colliders = FindObjectsByType<ColliderAABB>(FindObjectsSortMode.None);
-
+        ColliderAABB[] colliders = Object.FindObjectsByType<ColliderAABB>(FindObjectsSortMode.None);
 
         foreach (var col in colliders)
         {
@@ -44,5 +35,11 @@ public class Paddle : MonoBehaviour, ICustomUpdate
 
         if (canMove)
             transform.position = newPosition;
+    }
+
+    private Vector3 GetRendererBoundsExtents(Transform tf)
+    {
+        var renderer = tf.GetComponent<Renderer>();
+        return renderer != null ? renderer.bounds.extents : Vector3.one * 0.5f;
     }
 }

@@ -1,28 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public interface ICustomUpdate
 {
     void CustomUpdate();
 }
+
 public class CustomUpdateManager : MonoBehaviour
 {
-    private static readonly List<ICustomUpdate> updatables = new List<ICustomUpdate>();
+    public static CustomUpdateManager Instance { get; private set; }
 
-    public static void Register(ICustomUpdate obj)
-    {
-        if (!updatables.Contains(obj))
-        {
-            updatables.Add(obj);
-        }
-    }
+    private static readonly List<ICustomUpdate> updatables = new();
 
-    public static void Unregister(ICustomUpdate obj)
+    private void Awake()
     {
-        if (updatables.Contains(obj))
+        if (Instance != null && Instance != this)
         {
-            updatables.Remove(obj);
+            Destroy(gameObject);
+            return;
         }
+        Instance = this;
     }
 
     private void LateUpdate()
@@ -31,5 +29,17 @@ public class CustomUpdateManager : MonoBehaviour
         {
             updatables[i].CustomUpdate();
         }
+    }
+
+    public static void Register(ICustomUpdate obj)
+    {
+        if (!updatables.Contains(obj))
+            updatables.Add(obj);
+    }
+
+    public static void Unregister(ICustomUpdate obj)
+    {
+        if (updatables.Contains(obj))
+            updatables.Remove(obj);
     }
 }

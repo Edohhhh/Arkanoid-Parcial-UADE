@@ -1,25 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
-public class Brick : MonoBehaviour
+public class BrickLogic
 {
+    public Transform transform;
     public int hitsToBreak = 3;
-
-    public float width = 1f;
-    public float height = 0.5f;
-
     public bool hasPowerUp = false;
     public GameObject powerUpPrefab;
-
-    public float dropChance = 30f; 
-
+    public float dropChance = 30f;
     public ObjectPool powerUpPool;
-
     public SetAtlasTile atlasTile;
 
-    private void Start()
+    public void ConfigureAtlas()
     {
         if (atlasTile != null)
         {
@@ -30,14 +23,11 @@ public class Brick : MonoBehaviour
 
     public bool CheckCollision(Vector3 ballPos, float ballRadius)
     {
-        if (!TryGetComponent<Renderer>(out Renderer renderer))
+        if (!transform.TryGetComponent<Renderer>(out Renderer renderer))
             return false;
 
         Bounds bounds = renderer.bounds;
-
-        
         bounds.Expand(ballRadius * 2f);
-
         return bounds.Contains(ballPos);
     }
 
@@ -45,16 +35,22 @@ public class Brick : MonoBehaviour
     {
         hitsToBreak--;
 
-        if (atlasTile != null)
+        if (powerUpPool != null)
         {
-            atlasTile.atlasColumn = hitsToBreak - 1;
+            GameManager.Instance.TrySpawnPowerUp(transform.position);
+        }
+
+        if (atlasTile != null && hitsToBreak > 0)
+        {
+            atlasTile.atlasColumn = Mathf.Clamp(hitsToBreak - 1, 0, 2);
             atlasTile.ApplyTile();
         }
 
         if (hitsToBreak <= 0)
         {
-            if (ScoreManager.Instance != null)
-                ScoreManager.Instance.AddPoints(1);
+            GameManager.Instance.AddPoints(1);
+            GameManager.Instance.BrickDestroyed();
+
             if (hasPowerUp && powerUpPrefab != null)
             {
                 float chance = Random.Range(0f, 100f);
@@ -62,19 +58,16 @@ public class Brick : MonoBehaviour
                 {
                     if (powerUpPool != null)
                     {
-                        GameObject p = powerUpPool.GetFromPool(transform.position);
-                        p.transform.rotation = Quaternion.Euler(0f, 0f, 90f); 
-                        PowerUp pScript = p.GetComponent<PowerUp>();
-                        pScript.pool = powerUpPool;
+                        GameManager.Instance.TrySpawnPowerUp(transform.position);
                     }
                     else
                     {
-                        Instantiate(powerUpPrefab, transform.position, Quaternion.Euler(90f, 0f, 0f)); 
+                        Object.Instantiate(powerUpPrefab, transform.position, Quaternion.Euler(90f, 0f, 0f));
                     }
                 }
             }
 
-            Destroy(gameObject);
+            transform.gameObject.SetActive(false);
         }
     }
 }
