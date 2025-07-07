@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject powerUpPrefab;
     public ObjectPool ballPool;
 
-    [Header("Configuraci�n de grilla")]
+
+    [Header("Configuración de grilla")]
     public int rows = 5;
     public int columns = 10;
     public float spacing = 1.1f;
@@ -32,6 +33,17 @@ public class GameManager : MonoBehaviour
     private PaddleLogic paddle;
     private BallLogic ball;
     private List<BrickInstance> bricks = new();
+    public NumericDisplay scoreDisplay;
+
+    [Header("Puntajes")]
+    private int score = 0;
+    [SerializeField] private int lives = 3;
+    [SerializeField] private NumericDisplay livesDisplay;
+    [SerializeField] private NumericDisplay bricksDisplay;
+    private int paddleHits = 0;
+    [SerializeField] private NumericDisplay paddleHitsDisplay;
+
+
 
     private void Awake()
     {
@@ -46,6 +58,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         InitializeGame();
+        scoreDisplay?.UpdateDisplay(score);
+        livesDisplay?.UpdateDisplay(lives);
+        bricksDisplay?.UpdateDisplay(bricksLeft);
+        paddleHitsDisplay?.UpdateDisplay(paddleHits);
     }
 
     public void InitializeGame()
@@ -126,21 +142,32 @@ public class GameManager : MonoBehaviour
     public void BrickDestroyed()
     {
         bricksLeft--;
+        bricksDisplay?.UpdateDisplay(bricksLeft);
     }
 
     public void AddPoints(int amount)
     {
-        // Implementar puntaje si es necesario
+        score += amount;
+        scoreDisplay?.UpdateDisplay(score);
     }
 
     public void AddPaddleHit()
     {
-        // Efectos o sonido
+        paddleHits++;
+        paddleHitsDisplay?.UpdateDisplay(paddleHits);
     }
 
     public void LoseLife()
     {
-        // Vidas - reinicio - Game Over
+        lives--;
+        livesDisplay?.UpdateDisplay(lives);
+
+        if (lives <= 0)
+        {
+            Debug.Log("👾 Game Over!");
+            // Podés recargar la escena o mostrar pantalla de Game Over
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
     public BallLogic GetMainBallLogic()
     {

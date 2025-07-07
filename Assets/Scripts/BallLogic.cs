@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-
 
 public class BallLogic : ICustomUpdate
 {
@@ -9,6 +7,7 @@ public class BallLogic : ICustomUpdate
     public Transform paddle;
     public bool isMainBall = false;
     public float speed = 8f;
+
     private Vector3 direction;
     private bool launched = false;
 
@@ -127,20 +126,16 @@ public class BallLogic : ICustomUpdate
                     brick.DestroyCompletely();
                     GameManager.Instance.AddPoints(1);
                     GameManager.Instance.BrickDestroyed();
+                    brick.gameObject.SetActive(false);
+                    // No rebota si es explosivo
                 }
                 else
                 {
-                    brick.TakeHit();
+                    bool wasDestroyed = brick.TakeHit();
 
-                    if (brick.IsActive())
+                    if (!wasDestroyed)
                     {
                         direction.y *= -1;
-                    }
-                    else
-                    {
-                        GameManager.Instance.AddPoints(1);
-                        GameManager.Instance.BrickDestroyed();
-                        brick.gameObject.SetActive(false);
                     }
                 }
 
@@ -181,5 +176,3 @@ public class BallLogic : ICustomUpdate
         direction.y = Mathf.Abs(direction.y);
     }
 }
-
-

@@ -16,3 +16,7 @@ MonoBehaviour:
   powerUps:
   - effect: {fileID: 11400000, guid: 249f86859a784714d803942840e56070, type: 2}
     weight: 1
+  - effect: {fileID: 11400000, guid: 0aaa643a7235c9d4f9334305ab5427f2, type: 2}
+    weight: 1
+  - effect: {fileID: 11400000, guid: 242e22f9c1288594490c0f4f4f84dd44, type: 2}
+    weight: 1

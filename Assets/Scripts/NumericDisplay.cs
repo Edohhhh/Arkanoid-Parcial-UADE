@@ -1,39 +1,70 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class NumericDisplay : MonoBehaviour
 {
-    [Header("Sprites")]
-    public Sprite[] digits;
+    public GameObject digitPrefab;                // Prefab que debe tener un componente Image
+    public Transform digitsParent;                // Contenedor donde instanciar los dígitos
+    public Sprite[] digitSprites;                 // Sprites del 0 al 9
+    public int digitCount = 5;                    // Cuántos dígitos mostrar como máximo
 
-    [Header("Referencia visual")]
-    public GameObject digitPrefab;
-    public Transform digitParent;
+    private Image[] digitImages;
 
-    private List<GameObject> currentDigits = new();
-
-    public void SetNumber(int value)
+    private void Awake()
     {
-        foreach (var digitGO in currentDigits)
-            Destroy(digitGO);
+        SetupDigits(digitCount);
+    }
 
-        currentDigits.Clear();
+    private void SetupDigits(int count)
+    {
+        digitImages = new Image[count];
 
-        string str = Mathf.Max(0, value).ToString();
-
-        foreach (char c in str)
+        for (int i = 0; i < count; i++)
         {
-            GameObject newDigit = Instantiate(digitPrefab, digitParent);
-            int index = c - '0';
-            newDigit.GetComponent<Image>().sprite = digits[index];
-            currentDigits.Add(newDigit);
+            GameObject digit = Instantiate(digitPrefab, digitsParent);
+            digit.transform.localScale = Vector3.one;
+
+            Image img = digit.GetComponent<Image>();
+            if (img == null)
+            {
+                Debug.LogError("❌ El digitPrefab no tiene un componente Image.");
+                return;
+            }
+
+            digitImages[i] = img;
+            img.enabled = false;
         }
     }
 
-    public void Refresh()
+    public void SetNumber(int number)
     {
-        // placeholder opcional si quer�s refrescar en alg�n momento
+        if (number < 0) number = 0;
+
+        string str = number.ToString();
+        if (str.Length > digitImages.Length)
+        {
+            Debug.LogWarning($"⚠️ Número {number} demasiado largo para el display (max {digitImages.Length} dígitos). Se truncará.");
+            str = str.Substring(str.Length - digitImages.Length);
+        }
+
+        for (int i = 0; i < digitImages.Length; i++)
+        {
+            if (i < str.Length)
+            {
+                int digit = str[str.Length - 1 - i] - '0';
+                digitImages[i].sprite = digitSprites[digit];
+                digitImages[i].enabled = true;
+            }
+            else
+            {
+                digitImages[i].enabled = false;
+            }
+        }
+    }
+
+    public void UpdateDisplay(int value)
+    {
+        SetNumber(value);
     }
 }

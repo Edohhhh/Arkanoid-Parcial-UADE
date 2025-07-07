@@ -31,14 +31,12 @@ public class BrickLogic
         return bounds.Contains(ballPos);
     }
 
-    public void TakeHit()
+    public bool TakeHit()
     {
-        hitsToBreak--;
+        if (hitsToBreak <= 0)
+            return false;
 
-        if (powerUpPool != null)
-        {
-            GameManager.Instance.TrySpawnPowerUp(transform.position);
-        }
+        hitsToBreak--;
 
         if (atlasTile != null && hitsToBreak > 0)
         {
@@ -48,6 +46,8 @@ public class BrickLogic
 
         if (hitsToBreak <= 0)
         {
+            transform.gameObject.SetActive(false);
+
             GameManager.Instance.AddPoints(1);
             GameManager.Instance.BrickDestroyed();
 
@@ -67,7 +67,9 @@ public class BrickLogic
                 }
             }
 
-            transform.gameObject.SetActive(false);
+            return true;
         }
+
+        return false;
     }
 }
