@@ -1,22 +1,31 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+
+
 
 public class UIAudioManager : MonoBehaviour
 {
     public static UIAudioManager Instance { get; private set; }
 
-    [Header("Audio")]
+    [Header("Audio Mixer")]
     public AudioMixer audioMixer;
 
-    [Header("Canvas References")]
-    public GameObject gameplayCanvas;
-    public GameObject settingsCanvas;
+    [Header("Clips de música y efectos")]
+    public AudioClip backgroundMusic;
+    public AudioClip ballHitClip;
+    public AudioClip lifeLostClip;
+    public AudioClip winClip;
+    public AudioClip gameOverClip;
+    public AudioClip brickHitClip;
 
     [Header("Sliders")]
     public Slider masterSlider;
     public Slider musicSlider;
     public Slider sfxSlider;
+
+    private AudioSource musicSource;
+    private AudioSource sfxSource;
 
     private void Awake()
     {
@@ -28,34 +37,56 @@ public class UIAudioManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // 🎵 Fuente de música
+        musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Music")[0];
+        musicSource.loop = true;
+        musicSource.playOnAwake = false;
+        musicSource.spatialBlend = 0f;
+
+        // 🔊 Fuente de efectos
+        sfxSource = gameObject.AddComponent<AudioSource>();
+        sfxSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0];
+        sfxSource.loop = false;
+        sfxSource.playOnAwake = false;
+        sfxSource.spatialBlend = 0f;
     }
 
+    // 🎵 Música de fondo
+    public void PlayBackgroundMusic()
+    {
+        if (backgroundMusic == null || musicSource == null) return;
+        musicSource.clip = backgroundMusic;
+        musicSource.Play();
+    }
+
+    // 🔊 Volumen desde sliders
     public void SetMasterVolume(float value)
     {
-        audioMixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Max(value, 0.0001f)) * 20);
     }
 
     public void SetMusicVolume(float value)
     {
-        audioMixer.SetFloat("MusicVolume", Mathf.Log10(value) * 20);
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Max(value, 0.0001f)) * 20);
     }
 
     public void SetSFXVolume(float value)
     {
-        audioMixer.SetFloat("SFXVolume", Mathf.Log10(value) * 20);
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Max(value, 0.0001f)) * 20);
     }
 
-    public void ShowSettings()
-    {
-        gameplayCanvas.SetActive(false);
-        settingsCanvas.SetActive(true);
-        Time.timeScale = 0f;
-    }
+    // 🔉 Efectos
+    public void PlayBrickHit() => PlaySFX(brickHitClip);
+    public void PlayBallHit() => PlaySFX(ballHitClip);
+    public void PlayLifeLost() => PlaySFX(lifeLostClip);
+    public void PlayWin() => PlaySFX(winClip);
+    public void PlayGameOver() => PlaySFX(gameOverClip);
 
-    public void HideSettings()
+    private void PlaySFX(AudioClip clip)
     {
-        gameplayCanvas.SetActive(true);
-        settingsCanvas.SetActive(false);
-        Time.timeScale = 1f;
+        if (clip != null && sfxSource != null)
+            sfxSource.PlayOneShot(clip);
     }
 }

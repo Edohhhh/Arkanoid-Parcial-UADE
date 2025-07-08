@@ -42,6 +42,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private NumericDisplay bricksDisplay;
     private int paddleHits = 0;
     [SerializeField] private NumericDisplay paddleHitsDisplay;
+    [Header("Pausa")]
+    public GameObject pauseMenuUI;
+    private bool isPaused = false;
+    private PauseLogic pauseLogic;
+
+    [Header("Parallax")]
+    [SerializeField] private List<Transform> parallaxLayers;
+    [SerializeField] private List<float> parallaxSpeeds;
 
 
 
@@ -53,6 +61,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        CustomUpdateManager.Register(new DelayedMusicStart());
     }
 
     private void Start()
@@ -62,6 +72,8 @@ public class GameManager : MonoBehaviour
         livesDisplay?.UpdateDisplay(lives);
         bricksDisplay?.UpdateDisplay(bricksLeft);
         paddleHitsDisplay?.UpdateDisplay(paddleHits);
+        pauseLogic = new PauseLogic(this);
+        CustomUpdateManager.Register(pauseLogic);
     }
 
     public void InitializeGame()
@@ -78,6 +90,7 @@ public class GameManager : MonoBehaviour
 
         SpawnBricks();
         ball.SetBricks(bricks);
+        RegisterParallaxLayers();
     }
 
     public void SpawnBricks()
@@ -127,8 +140,55 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    private class DelayedMusicStart : ICustomUpdate
+    {
+        private bool started = false;
 
+        public void CustomUpdate()
+        {
+            if (!started && UIAudioManager.Instance != null)
+            {
+                UIAudioManager.Instance.PlayBackgroundMusic();
+                started = true;
+                CustomUpdateManager.Unregister(this);
+            }
+        }
+    }
 
+    void RegisterParallaxLayers()
+    {
+        for (int i = 0; i < parallaxLayers.Count; i++)
+        {
+            if (parallaxLayers[i] != null)
+            {
+                var logic = new ParallaxLayerLogic(parallaxLayers[i], paddleTransform, parallaxSpeeds[i]);
+                CustomUpdateManager.Register(logic);
+            }
+            else
+            {
+                Debug.LogWarning($"🌀 No se asignó capa en el índice {i} de parallaxLayers.");
+            }
+        }
+    }
+    public void TogglePause()
+{
+    isPaused = !isPaused;
+    pauseMenuUI.SetActive(isPaused);
+    Time.timeScale = isPaused ? 0f : 1f;
+}
+
+public void ResumeGame()
+{
+    isPaused = false;
+    pauseMenuUI.SetActive(false);
+    Time.timeScale = 1f;
+}
+
+public void ReturnToMainMenu()
+{
+    Time.timeScale = 1f;
+    SceneManager.LoadScene("MainMenu");
+}
     public void TrySpawnPowerUp(Vector3 position)
     {
         PowerUpEffectSO effect = dropTable.GetRandomPowerUp();
@@ -159,11 +219,13 @@ public class GameManager : MonoBehaviour
 
     public void LoseLife()
     {
+        UIAudioManager.Instance.PlayLifeLost();
         lives--;
         livesDisplay?.UpdateDisplay(lives);
 
         if (lives <= 0)
         {
+            UIAudioManager.Instance.PlayGameOver();
             Debug.Log("👾 Game Over!");
             // Podés recargar la escena o mostrar pantalla de Game Over
             // SceneManager.LoadScene(SceneManager.GetActiveScene().name);

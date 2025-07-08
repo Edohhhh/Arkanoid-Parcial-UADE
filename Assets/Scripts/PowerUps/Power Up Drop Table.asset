@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e8c993218ff3c45b90ce93c16a794a, type: 3}
   m_Name: Power Up Drop Table
   m_EditorClassIdentifier: 
-  dropChance: 0.3
+  dropChance: 1
   powerUps:
   - effect: {fileID: 11400000, guid: 249f86859a784714d803942840e56070, type: 2}
     weight: 1

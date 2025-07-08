@@ -97,9 +97,15 @@ public class BallLogic : ICustomUpdate
                 if (bounds.Contains(transform.position))
                 {
                     if (col.type == ColliderAABB.ColliderType.Wall)
+                    {
                         direction.x *= -1;
+                        UIAudioManager.Instance.PlayBallHit();
+                    }
                     else if (col.type == ColliderAABB.ColliderType.Ceiling)
+                    {
                         direction.y = -Mathf.Abs(direction.y);
+                        UIAudioManager.Instance.PlayBallHit(); 
+                    }
                     return true;
                 }
             }
@@ -136,6 +142,7 @@ public class BallLogic : ICustomUpdate
                     if (!wasDestroyed)
                     {
                         direction.y *= -1;
+                        UIAudioManager.Instance.PlayBrickHit();
                     }
                 }
 
@@ -144,6 +151,7 @@ public class BallLogic : ICustomUpdate
         }
 
         return false;
+
     }
 
     private bool CheckCollisionWithPaddle()
@@ -174,5 +182,7 @@ public class BallLogic : ICustomUpdate
 
         direction = new Vector3(Mathf.Sin(angleRad), Mathf.Cos(angleRad), 0).normalized;
         direction.y = Mathf.Abs(direction.y);
+
+        UIAudioManager.Instance.PlayBallHit();
     }
 }

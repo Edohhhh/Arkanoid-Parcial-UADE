@@ -1,0 +1,714 @@
+fileFormatVersion: 2
+guid: 07f01bb6a7c20f8469e88ab9bee865e2
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: REBOTES_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 699
+        width: 1037
+        height: 588
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bf86fa1e4b63054498bdcffcf235803
+      internalID: -1171923928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_1
+      rect:
+        serializedVersion: 2
+        x: 1160
+        y: 903
+        width: 665
+        height: 349
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b28acd6f58bd35b4a9f5463709e2dd66
+      internalID: -479181624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_2
+      rect:
+        serializedVersion: 2
+        x: 1953
+        y: 1208
+        width: 12
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfd9de9f667751b4e905b3edf9871ffc
+      internalID: -1302204330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_3
+      rect:
+        serializedVersion: 2
+        x: 2031
+        y: 1184
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f1821cfc834a494299e262562551773
+      internalID: 1717844426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_4
+      rect:
+        serializedVersion: 2
+        x: 2072
+        y: 1169
+        width: 391
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc88e8af708c3e24c912ad7d07170547
+      internalID: -1348853161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_5
+      rect:
+        serializedVersion: 2
+        x: 1951
+        y: 1116
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a72d8d304d2ff04498d0d1b86d6be74c
+      internalID: 221045421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_6
+      rect:
+        serializedVersion: 2
+        x: 2069
+        y: 1036
+        width: 393
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0217bece14f467a43baf957b1a04d1fb
+      internalID: 839821415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_7
+      rect:
+        serializedVersion: 2
+        x: 2037
+        y: 1081
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7943a245c068ad4aae4e95c98cd703d
+      internalID: -954121935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_8
+      rect:
+        serializedVersion: 2
+        x: 1964
+        y: 1025
+        width: 20
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8d2bce759e3b46438e2ece7cde39376
+      internalID: 675917218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_9
+      rect:
+        serializedVersion: 2
+        x: 2031
+        y: 970
+        width: 21
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbaaf4cac134d5e4d9ba1bc72c90b279
+      internalID: 1599222800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_10
+      rect:
+        serializedVersion: 2
+        x: 2069
+        y: 903
+        width: 393
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5e08be2c12377e4e9eea768f3303fbe
+      internalID: -222260026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_11
+      rect:
+        serializedVersion: 2
+        x: 1963
+        y: 933
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c613b944d8cd2bd409570eec2994462b
+      internalID: -771451813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_12
+      rect:
+        serializedVersion: 2
+        x: 1963
+        y: 848
+        width: 21
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86a4db96d3eef104ba1309011e7464dc
+      internalID: 943796979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_13
+      rect:
+        serializedVersion: 2
+        x: 2034
+        y: 867
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e44b98d9e33e78f47bdef1ca36b7ea02
+      internalID: -455306768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_14
+      rect:
+        serializedVersion: 2
+        x: 2072
+        y: 770
+        width: 391
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b546a97aaa8b35c46877ec40276527d8
+      internalID: -2091081415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_15
+      rect:
+        serializedVersion: 2
+        x: 1178
+        y: 693
+        width: 629
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07d37dde13dc5894ebf3d01595211723
+      internalID: -344895538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_16
+      rect:
+        serializedVersion: 2
+        x: 1991
+        y: 747
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6eaebddf6acc0d438863c4f808ebf33
+      internalID: 1212083291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_17
+      rect:
+        serializedVersion: 2
+        x: 2069
+        y: 636
+        width: 393
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a326d68d8e531204d942a337bc563f9d
+      internalID: 175468232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_18
+      rect:
+        serializedVersion: 2
+        x: 2200
+        y: 566
+        width: 178
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0abbbb2b71e9344ab42b6f68e836600
+      internalID: -1542178843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_19
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 29
+        width: 1646
+        height: 522
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bc2d2d4779a11c46967c497e56c3f68
+      internalID: -1786863463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_20
+      rect:
+        serializedVersion: 2
+        x: 1603
+        y: 208
+        width: 445
+        height: 351
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddbc7ea5ec207cc4ab9bca1548789366
+      internalID: -639972743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_21
+      rect:
+        serializedVersion: 2
+        x: 2200
+        y: 485
+        width: 155
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f175fd3625286204b9464cdfdb5733d1
+      internalID: -1650189341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_22
+      rect:
+        serializedVersion: 2
+        x: 2084
+        y: 378
+        width: 331
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a992c45c8cc4d94e904e03ad7230ed8
+      internalID: -466764345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_23
+      rect:
+        serializedVersion: 2
+        x: 2086
+        y: 270
+        width: 331
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e7ace755d7f4294c96586f071747361
+      internalID: 879066078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_24
+      rect:
+        serializedVersion: 2
+        x: 2085
+        y: 171
+        width: 330
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc68140b25c5f5e448893961f4db9490
+      internalID: -801243152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_25
+      rect:
+        serializedVersion: 2
+        x: 2086
+        y: 62
+        width: 331
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c140f80bbb4cd54092d2f21c5948078
+      internalID: -2100050266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: REBOTES_26
+      rect:
+        serializedVersion: 2
+        x: 2097
+        y: 24
+        width: 308
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07c3172fa7185aa43bb3d83b1856847d
+      internalID: 1163457084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 0d1ddb468035ce44abc788b7ae2c7fd8
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      REBOTES_0: -1171923928
+      REBOTES_1: -479181624
+      REBOTES_10: -222260026
+      REBOTES_11: -771451813
+      REBOTES_12: 943796979
+      REBOTES_13: -455306768
+      REBOTES_14: -2091081415
+      REBOTES_15: -344895538
+      REBOTES_16: 1212083291
+      REBOTES_17: 175468232
+      REBOTES_18: -1542178843
+      REBOTES_19: -1786863463
+      REBOTES_2: -1302204330
+      REBOTES_20: -639972743
+      REBOTES_21: -1650189341
+      REBOTES_22: -466764345
+      REBOTES_23: 879066078
+      REBOTES_24: -801243152
+      REBOTES_25: -2100050266
+      REBOTES_26: 1163457084
+      REBOTES_27: 1547324743
+      REBOTES_28: -17256036
+      REBOTES_29: -637329051
+      REBOTES_3: 1717844426
+      REBOTES_30: 30918068
+      REBOTES_31: -1223921771
+      REBOTES_32: -1939517282
+      REBOTES_4: -1348853161
+      REBOTES_5: 221045421
+      REBOTES_6: 839821415
+      REBOTES_7: -954121935
+      REBOTES_8: 675917218
+      REBOTES_9: 1599222800
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

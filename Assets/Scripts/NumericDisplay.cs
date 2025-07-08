@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public class NumericDisplay : MonoBehaviour
 {
-    public GameObject digitPrefab;                // Prefab que debe tener un componente Image
-    public Transform digitsParent;                // Contenedor donde instanciar los dígitos
-    public Sprite[] digitSprites;                 // Sprites del 0 al 9
-    public int digitCount = 5;                    // Cuántos dígitos mostrar como máximo
+    public GameObject digitPrefab;          // Prefab con componente Image
+    public Transform digitsParent;          // Contenedor visual de los dígitos
+    public Sprite[] digitSprites;           // Sprites del 0 al 9
+    public int digitCount = 5;              // Cantidad máxima de dígitos visibles
 
     private Image[] digitImages;
 
@@ -42,23 +42,27 @@ public class NumericDisplay : MonoBehaviour
         if (number < 0) number = 0;
 
         string str = number.ToString();
+
         if (str.Length > digitImages.Length)
         {
             Debug.LogWarning($"⚠️ Número {number} demasiado largo para el display (max {digitImages.Length} dígitos). Se truncará.");
             str = str.Substring(str.Length - digitImages.Length);
         }
 
+        int padding = digitImages.Length - str.Length;
+
         for (int i = 0; i < digitImages.Length; i++)
         {
-            if (i < str.Length)
+            if (i < padding)
             {
-                int digit = str[str.Length - 1 - i] - '0';
-                digitImages[i].sprite = digitSprites[digit];
-                digitImages[i].enabled = true;
+                digitImages[i].enabled = false;
             }
             else
             {
-                digitImages[i].enabled = false;
+                int digitIndex = i - padding;
+                int digit = str[digitIndex] - '0';
+                digitImages[i].sprite = digitSprites[digit];
+                digitImages[i].enabled = true;
             }
         }
     }
