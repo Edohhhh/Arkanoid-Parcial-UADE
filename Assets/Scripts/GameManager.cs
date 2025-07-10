@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
             ForceAtlasApplyInChildren(levelInstance);
         }
 
-        // ✅ Usar el RowConfigPerLevel directamente
+        
         if (startingLevel - 1 < levelRowConfigs.Count && levelRowConfigs[startingLevel - 1] != null)
         {
             currentRowConfig = levelRowConfigs[startingLevel - 1];
@@ -246,7 +246,7 @@ public class GameManager : MonoBehaviour
         if (loadedAssets.TryGetValue(assetName, out var prefab))
             return Instantiate(prefab);
 
-        // 🔁 Intentamos sin "(Clone)" si falló
+       
         string cleanName = assetName.Replace("(Clone)", "");
         if (loadedAssets.TryGetValue(cleanName, out prefab))
             return Instantiate(prefab);
@@ -300,7 +300,7 @@ public class GameManager : MonoBehaviour
 
         PowerUpLogic logic = new PowerUpLogic();
         logic.Initialize(p.transform, powerUpPool, effect);
-        logic.SetPaddle(paddle.transform); // <- esto es clave para detectar colisión con paddle
+        logic.SetPaddle(paddle.transform); 
     }
 
     public void BrickDestroyed()
@@ -317,7 +317,7 @@ public class GameManager : MonoBehaviour
             if (currentLevel > maxLevel)
             {
                 Debug.Log("🎉 Todos los niveles completados. Escena de victoria.");
-                SceneManager.LoadScene("Victory"); // Cambiá "Victory" por el nombre real de tu escena de victoria
+                SceneManager.LoadScene("Victory"); 
             }
             else
             {
@@ -467,20 +467,12 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (currentLevel - 1 < levelRowConfigs.Count && levelRowConfigs[currentLevel - 1] != null)
-        {
-            currentRowConfig = levelRowConfigs[currentLevel - 1];
-            Debug.Log($"✅ currentRowConfig apunta a RowConfig_Level{currentLevel}");
-        }
-        else
-        {
-            Debug.LogWarning($"⚠️ No se encontró RowConfig para nivel {currentLevel}");
-            currentRowConfig = null;
-        }
+        
+        UIAudioManager.Instance.PlayWin();
 
         CustomUpdateManager.ClearAll();
 
-        // 🔁 Re-registrar Paddle y Ball existentes
+        
         if (paddle != null)
         {
             CustomUpdateManager.Register(paddle);
@@ -488,21 +480,21 @@ public class GameManager : MonoBehaviour
 
         if (ball != null)
         {
-            // Reposicionar la bola en el paddle
+            
             ball.transform.position = paddle.transform.position + Vector3.up * 0.6f;
             ball.paddle = paddle.transform;
             ball.isMainBall = true;
-            ball.SetBricks(bricks); // los bricks se regenerarán abajo
+            ball.SetBricks(bricks); 
             CustomUpdateManager.Register(ball);
         }
 
-        // 🔄 Desinstanciar nivel anterior
+        
         foreach (Transform child in levelRoot)
         {
             Destroy(child.gameObject);
         }
 
-        // ⬇️ Instanciar nuevo nivel Addressable
+        
         GameObject level = GetAddressableInstance(levelAddressPrefix + currentLevel);
         if (level != null)
         {
@@ -514,19 +506,19 @@ public class GameManager : MonoBehaviour
             Debug.LogError($"❌ Nivel {currentLevel} no se pudo cargar.");
         }
 
-        // 🧱 Regenerar bricks
+        
         SpawnBricks();
         if (ball != null)
         {
-            ball.SetBricks(bricks); // actualizar bricks en lógica de bola
+            ball.SetBricks(bricks); 
         }
 
-        // UI
+       
         scoreDisplay?.UpdateDisplay(score);
         bricksDisplay?.UpdateDisplay(bricksLeft);
         paddleHitsDisplay?.UpdateDisplay(paddleHits);
 
-        // Pausa, música y parallax
+        
         pauseLogic = new PauseLogic(this);
         CustomUpdateManager.Register(pauseLogic);
         RegisterParallaxLayers();

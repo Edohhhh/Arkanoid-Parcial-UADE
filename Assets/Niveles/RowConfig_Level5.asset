@@ -19,7 +19,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 0}
   - hits: 2
     color: {r: 0, g: 0, b: 0, a: 0}
-  - hits: 0
+  - hits: 2
     color: {r: 0, g: 0, b: 0, a: 0}
   - hits: 3
     color: {r: 0, g: 0, b: 0, a: 0}

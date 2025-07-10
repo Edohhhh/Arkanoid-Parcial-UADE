@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd8b49aa7b71f304bad6b345c641b8af, type: 3}
-  m_Name: RowConfig_Level4
+  m_Name: RowConfig_Level10
   m_EditorClassIdentifier: 
   rowConfigs:
-  - hits: 1
-    color: {r: 0, g: 0, b: 0, a: 0}
   - hits: 2
     color: {r: 0, g: 0, b: 0, a: 0}
   - hits: 2
@@ -23,7 +21,11 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 0}
   - hits: 2
     color: {r: 0, g: 0, b: 0, a: 0}
-  - hits: 2
+  - hits: 4
     color: {r: 0, g: 0, b: 0, a: 0}
-  - hits: 3
+  - hits: 4
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - hits: 4
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - hits: 4
     color: {r: 0, g: 0, b: 0, a: 0}
