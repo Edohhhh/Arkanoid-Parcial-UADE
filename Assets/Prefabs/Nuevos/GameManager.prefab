@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4299576395922312902
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8300989225891004474}
+  - component: {fileID: 1122056885669272384}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8300989225891004474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299576395922312902}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.040502008, y: 4.3492785, z: -11.030332}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1122056885669272384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4299576395922312902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464833e0f728bc0498a241c10a494f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddleTransform: {fileID: 0}
+  ballTransform: {fileID: 0}
+  bricksStartPoint: {fileID: 0}
+  brickPool: {fileID: 0}
+  powerUpPool: {fileID: 0}
+  powerUpPrefab: {fileID: 6504920648491059321, guid: c35ed40bfc07efe47b189b260aed8b42, type: 3}
+  ballPool: {fileID: 0}
+  rows: 5
+  columns: 8
+  spacing: 1.6
+  rowConfigs:
+  - hits: 3
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - hits: 3
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - hits: 2
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - hits: 2
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - hits: 1
+    color: {r: 0, g: 0, b: 0, a: 0}
+  dropTable: {fileID: 11400000, guid: 54281f23661082e49afe97d8dcb5bc53, type: 2}
+  bricksLeft: 10
+  scoreDisplay: {fileID: 0}
+  lives: 3
+  livesDisplay: {fileID: 0}
+  bricksDisplay: {fileID: 0}
+  paddleHitsDisplay: {fileID: 0}
+  pauseMenuUI: {fileID: 0}
+  parallaxLayers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  parallaxSpeeds:
+  - 0.02
+  - 0.05
+  - 0.05
+  - 0.1

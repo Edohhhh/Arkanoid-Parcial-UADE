@@ -42,4 +42,9 @@ public class CustomUpdateManager : MonoBehaviour
         if (updatables.Contains(obj))
             updatables.Remove(obj);
     }
+
+    public static void ClearAll()
+    {
+        updatables.Clear();
+    }
 }

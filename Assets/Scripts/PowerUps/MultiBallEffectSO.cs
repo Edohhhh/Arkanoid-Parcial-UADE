@@ -5,33 +5,21 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PowerUps/MultiBall")]
 public class MultiBallEffectSO : PowerUpEffectSO
 {
-    [Header("Configuración")]
-    public int ballCount = 2;
-    public float offsetX = 0.5f;
+    public int extraBalls = 2;
 
     public override void ApplyEffect()
     {
-        Transform paddle = GameManager.Instance.paddleTransform;
-        ObjectPool ballPool = GameManager.Instance.ballPool;
+        var mainBall = GameManager.Instance.GetMainBallLogic();
+        if (mainBall == null) return;
 
-        List<BrickInstance> bricks = GameManager.Instance.GetBrickList(); // Esto debe existir en GameManager
-
-        for (int i = 0; i < ballCount; i++)
+        for (int i = 0; i < 2; i++)
         {
-            float xOffset = ((i - (ballCount - 1) / 2f) * offsetX);
-            Vector3 spawnPos = paddle.position + new Vector3(xOffset, 0.5f, 0);
+            // Offset de izquierda y derecha respecto a la pelota principal
+            Vector3 offset = new Vector3((i == 0 ? -0.5f : 0.5f), 0, 0);
+            Vector3 spawnPos = mainBall.transform.position + offset;
 
-            GameObject newBall = ballPool.GetFromPool(spawnPos);
-
-            BallLogic logic = new BallLogic
-            {
-                transform = newBall.transform,
-                paddle = paddle,
-                isMainBall = false,
-                bricks = bricks
-            };
-
-            CustomUpdateManager.Register(logic);
+            // Usa el método correcto del GameManager para instanciar y configurar una pelota
+            BallLogic newBall = GameManager.Instance.CreateNewBall(spawnPos);
         }
     }
 }

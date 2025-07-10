@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +11,8 @@ public class PowerUpDropTable : ScriptableObject
 
     public PowerUpEffectSO GetRandomPowerUp()
     {
+        Debug.Log($"🔍 Probando drop: chance={dropChance}, entries={powerUps.Count}");
+
         if (Random.value > dropChance || powerUps.Count == 0)
             return null;
 

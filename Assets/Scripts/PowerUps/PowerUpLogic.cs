@@ -9,6 +9,7 @@ public class PowerUpLogic : ICustomUpdate
     private ObjectPool originPool;
 
     public PowerUpEffectSO effect;
+    private Transform paddle;
 
     public void Initialize(Transform tf, ObjectPool pool, PowerUpEffectSO assignedEffect)
     {
@@ -18,6 +19,11 @@ public class PowerUpLogic : ICustomUpdate
         CustomUpdateManager.Register(this);
     }
 
+    public void SetPaddle(Transform paddleTransform)
+    {
+        this.paddle = paddleTransform;
+    }
+
     public void CustomUpdate()
     {
         transform.position += Vector3.down * fallSpeed * Time.deltaTime;
@@ -25,15 +31,13 @@ public class PowerUpLogic : ICustomUpdate
         if (transform.position.y < -6f)
         {
             Despawn();
+            return;
         }
 
-        if (GameManager.Instance.paddleTransform != null)
+        if (paddle != null && Vector3.Distance(transform.position, paddle.position) < 1f)
         {
-            if (Vector3.Distance(transform.position, GameManager.Instance.paddleTransform.position) < 1f)
-            {
-                effect?.ApplyEffect();
-                Despawn();
-            }
+            effect?.ApplyEffect();
+            Despawn();
         }
     }
 
