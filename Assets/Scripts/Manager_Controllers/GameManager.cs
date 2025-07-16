@@ -36,15 +36,24 @@ public class GameManager : MonoBehaviour
     private PaddleLogic paddle;
     private BallLogic ball;
     private List<BrickInstance> bricks = new();
-    public NumericDisplay scoreDisplay;
 
     [Header("Puntajes")]
     private int score = 0;
+    [SerializeField] private int digitCount = 5;
     [SerializeField] private int lives = 3;
-    [SerializeField] private NumericDisplay livesDisplay;
-    [SerializeField] private NumericDisplay bricksDisplay;
+    public Transform scoreDisplayRoot;
+    public Transform livesDisplayRoot;
+    public Transform bricksDisplayRoot;
+    public Transform paddleHitsDisplayRoot;
+    public GameObject digitPrefab;
+    public Sprite[] digitSprites;
+    private NumericDisplayLogic scoreDisplay;
+    private NumericDisplayLogic livesDisplay;
+    private NumericDisplayLogic bricksDisplay;
+    private NumericDisplayLogic paddleHitsDisplay;
+
+
     private int paddleHits = 0;
-    [SerializeField] private NumericDisplay paddleHitsDisplay;
 
     [Header("Pausa")]
     public GameObject pauseMenuUI;
@@ -107,6 +116,11 @@ public class GameManager : MonoBehaviour
 
         if (useRemoteAssets)
             Addressables.ResourceManager.InternalIdTransformFunc += ChangeAssetUrlToPrivateServer;
+
+        scoreDisplay = new NumericDisplayLogic(digitPrefab, scoreDisplayRoot, digitSprites, digitCount);
+        livesDisplay = new NumericDisplayLogic(digitPrefab, livesDisplayRoot, digitSprites, digitCount);
+        bricksDisplay = new NumericDisplayLogic(digitPrefab, bricksDisplayRoot, digitSprites, digitCount);
+        paddleHitsDisplay = new NumericDisplayLogic(digitPrefab, paddleHitsDisplayRoot, digitSprites, digitCount);
 
         StartCoroutine(LoadAssetsCoroutine());
         SubscribeOnAssetsLoaded(OnAssetsLoaded);
@@ -282,15 +296,11 @@ public class GameManager : MonoBehaviour
     {
         PowerUpEffectSO effect = dropTable.GetRandomPowerUp();
 
-        Debug.Log($"🔍 Probando drop: chance={dropTable.dropChance}, entries={dropTable.powerUps.Count}");
-
         if (effect == null)
         {
             Debug.Log("❌ No se eligió ningún powerup.");
             return;
         }
-
-        Debug.Log($"⚡ Intentando generar PowerUp: {effect.name}");
 
         GameObject p = powerUpPool.GetFromPool(position);
         if (p == null)

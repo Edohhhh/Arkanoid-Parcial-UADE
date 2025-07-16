@@ -140,6 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffae36979ae7d34abf15e63abefc242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &431282398 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 593266905544880036, guid: 4c696a4e7d451374a8379ef279cc268c, type: 3}
+  m_PrefabInstance: {fileID: 6124095406279788487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &566141463 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7234683970293429582, guid: c04d0960b159d3c45b0704f5fa27030c, type: 3}
@@ -367,6 +372,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5307858167993900524, guid: 62c2e38b68c82b546808e874483f2d00, type: 3}
   m_PrefabInstance: {fileID: 1847866759684416451}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1099905017 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8585549238370264910, guid: 4c696a4e7d451374a8379ef279cc268c, type: 3}
+  m_PrefabInstance: {fileID: 6124095406279788487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1309742914
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,6 +467,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffae36979ae7d34abf15e63abefc242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1475281734 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3830638101975940521, guid: 4c696a4e7d451374a8379ef279cc268c, type: 3}
+  m_PrefabInstance: {fileID: 6124095406279788487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1481666408 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4768080946472280380, guid: 6daf69cb1ec7ff74c89010e1dac71e87, type: 3}
@@ -495,6 +510,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffae36979ae7d34abf15e63abefc242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1979701713 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1339308339739132788, guid: 4c696a4e7d451374a8379ef279cc268c, type: 3}
+  m_PrefabInstance: {fileID: 6124095406279788487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2039913863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,6 +1061,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2039913864}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: digitPrefab
+      value: 
+      objectReference: {fileID: 5106327385885619759, guid: fd6610458fd15f846822082e1dd5c77a, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: pauseMenuUI
       value: 
       objectReference: {fileID: 566141463}
@@ -1081,9 +1105,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 665c2818822900943958487bae4aafc5, type: 2}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: livesDisplayRoot
+      value: 
+      objectReference: {fileID: 1979701713}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: paddleAddressKey
       value: Paddle
       objectReference: {fileID: 0}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: scoreDisplayRoot
+      value: 
+      objectReference: {fileID: 431282398}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: bricksDisplayRoot
+      value: 
+      objectReference: {fileID: 1475281734}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: paddleHitsDisplay
       value: 
@@ -1093,6 +1129,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5592865860786204251, guid: b9da94e568ee9c0469c272f9bcdc68ca, type: 3}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: paddleHitsDisplayRoot
+      value: 
+      objectReference: {fileID: 1099905017}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: rowConfigs.Array.size
       value: 6
       objectReference: {fileID: 0}
@@ -1101,6 +1141,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5200410115581085957, guid: 91e586a769fe6c6469e7674ac9be0238, type: 3}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: digitSprites.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: powerUpPoolConfig.prefab
       value: 
       objectReference: {fileID: 6504920648491059321, guid: c35ed40bfc07efe47b189b260aed8b42, type: 3}
@@ -1108,6 +1152,46 @@ PrefabInstance:
       propertyPath: assetReferences.Array.size
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: 'digitSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1212083291, guid: 07f01bb6a7c20f8469e88ab9bee865e2, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: 'digitSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: -1302204330, guid: 07f01bb6a7c20f8469e88ab9bee865e2, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: 'digitSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 221045421, guid: 07f01bb6a7c20f8469e88ab9bee865e2, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: 'digitSprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 675917218, guid: 07f01bb6a7c20f8469e88ab9bee865e2, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: 'digitSprites.Array.data[4]'
+      value: 
+      objectReference: {fileID: -771451813, guid: 07f01bb6a7c20f8469e88ab9bee865e2, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: 'digitSprites.Array.data[5]'
+      value: 
+      objectReference: {fileID: 943796979, guid: 07f01bb6a7c20f8469e88ab9bee865e2, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: 'digitSprites.Array.data[6]'
+      value: 
+      objectReference: {fileID: 1717844426, guid: 07f01bb6a7c20f8469e88ab9bee865e2, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: 'digitSprites.Array.data[7]'
+      value: 
+      objectReference: {fileID: -954121935, guid: 07f01bb6a7c20f8469e88ab9bee865e2, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: 'digitSprites.Array.data[8]'
+      value: 
+      objectReference: {fileID: 1599222800, guid: 07f01bb6a7c20f8469e88ab9bee865e2, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: 'digitSprites.Array.data[9]'
+      value: 
+      objectReference: {fileID: -455306768, guid: 07f01bb6a7c20f8469e88ab9bee865e2, type: 3}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: levelRowConfigs.Array.size
       value: 10
