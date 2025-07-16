@@ -461,6 +461,17 @@ public class GameManager : MonoBehaviour
     {
         currentLevel++;
 
+        if (currentLevel - 1 < levelRowConfigs.Count && levelRowConfigs[currentLevel - 1] != null)
+        {
+            currentRowConfig = levelRowConfigs[currentLevel - 1];
+            Debug.Log($"✅ currentRowConfig apunta a RowConfig_Level{currentLevel}");
+        }
+        else
+        {
+            Debug.LogWarning($"⚠️ No se encontró RowConfig para nivel {currentLevel}");
+            currentRowConfig = null;
+        }
+
         if (currentLevel > 10)
         {
             SceneManager.LoadScene("Victory");
