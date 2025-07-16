@@ -8,7 +8,6 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -17,10 +16,8 @@ public class GameManager : MonoBehaviour
     public Transform paddleTransform;
     public Transform ballTransform;
     public Transform bricksStartPoint;
-    public ObjectPool brickPool;
-    public ObjectPool powerUpPool;
     public GameObject powerUpPrefab;
-    public ObjectPool ballPool;
+
     private const int maxLevel = 10;
     [SerializeField] private List<RowConfigPerLevel> levelRowConfigs;
 
@@ -81,6 +78,22 @@ public class GameManager : MonoBehaviour
     private int currentLevel = 0;
     private LevelController levelController;
 
+    [Header("Config de Pools")]
+    [SerializeField] private PoolConfig brickPoolConfig;
+    [SerializeField] private PoolConfig ballPoolConfig;
+    [SerializeField] private PoolConfig powerUpPoolConfig;
+
+    private IPool brickPool;
+    private IPool ballPool;
+    private IPool powerUpPool;
+
+    [System.Serializable]
+    public class PoolConfig
+    {
+        public GameObject prefab;
+        public int initialSize = 10;
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -104,7 +117,6 @@ public class GameManager : MonoBehaviour
         pauseLogic = new PauseLogic(this);
         CustomUpdateManager.Register(pauseLogic);
     }
-
 
     private IEnumerator LoadAssetsCoroutine()
     {
@@ -133,18 +145,12 @@ public class GameManager : MonoBehaviour
             OnAddressablesLoaded?.Invoke();
     }
 
-    private readonly Dictionary<string, float> decorParallaxData = new()
-{
-    { "Nube(Clone)", 0.1f },
-    { "Nube2(Clone)", 0.05f },
-    { "Montaña(Clone)", 0.02f },
-    { "Logo(Clone)", 0.01f },
-    { "Background(Clone)", 0.00f }
-};
-
-
     private void OnAssetsLoaded()
     {
+        brickPool = new ObjectPoolLogic(brickPoolConfig.prefab, brickPoolConfig.initialSize, transform);
+        ballPool = new ObjectPoolLogic(ballPoolConfig.prefab, ballPoolConfig.initialSize, transform);
+        powerUpPool = new ObjectPoolLogic(powerUpPoolConfig.prefab, powerUpPoolConfig.initialSize, transform);
+
         levelController = new LevelController(levelRoot);
         GameObject level = GetAddressableInstance(levelAddressPrefix + startingLevel);
 
@@ -155,7 +161,6 @@ public class GameManager : MonoBehaviour
             ForceAtlasApplyInChildren(levelInstance);
         }
 
-        
         if (startingLevel - 1 < levelRowConfigs.Count && levelRowConfigs[startingLevel - 1] != null)
         {
             currentRowConfig = levelRowConfigs[startingLevel - 1];
@@ -200,13 +205,13 @@ public class GameManager : MonoBehaviour
             RegisterParallaxLayers();
 
             Dictionary<string, float> decorParallaxData = new()
-        {
-            { "Nube", 0.05f },
-            { "Nube2", 0.05f },
-            { "Map", 0.00f },
-            { "Logo", 0.1f },
-            { "Montaña", 0.02f }
-        };
+            {
+                { "Nube", 0.05f },
+                { "Nube2", 0.05f },
+                { "Map", 0.00f },
+                { "Logo", 0.1f },
+                { "Montaña", 0.02f }
+            };
 
             foreach (var kvp in decorParallaxData)
             {
@@ -227,7 +232,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private string ChangeAssetUrlToPrivateServer(IResourceLocation location)
     {
         string url = location.InternalId;
@@ -246,7 +250,6 @@ public class GameManager : MonoBehaviour
         if (loadedAssets.TryGetValue(assetName, out var prefab))
             return Instantiate(prefab);
 
-       
         string cleanName = assetName.Replace("(Clone)", "");
         if (loadedAssets.TryGetValue(cleanName, out prefab))
             return Instantiate(prefab);
@@ -300,7 +303,7 @@ public class GameManager : MonoBehaviour
 
         PowerUpLogic logic = new PowerUpLogic();
         logic.Initialize(p.transform, powerUpPool, effect);
-        logic.SetPaddle(paddle.transform); 
+        logic.SetPaddle(paddle.transform);
     }
 
     public void BrickDestroyed()
@@ -312,12 +315,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("🏁 Nivel completado!");
 
-            
-
             if (currentLevel > maxLevel)
             {
                 Debug.Log("🎉 Todos los niveles completados. Escena de victoria.");
-                SceneManager.LoadScene("Victory"); 
+                SceneManager.LoadScene("Victory");
             }
             else
             {
@@ -431,6 +432,7 @@ public class GameManager : MonoBehaviour
         CustomUpdateManager.Register(newBall);
         return newBall;
     }
+
     private class DelayedMusicStart : ICustomUpdate
     {
         private bool started = false;
@@ -457,6 +459,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     public void LoadNextLevel()
     {
         currentLevel++;
@@ -478,12 +481,10 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        
         UIAudioManager.Instance.PlayWin();
 
         CustomUpdateManager.ClearAll();
 
-        
         if (paddle != null)
         {
             CustomUpdateManager.Register(paddle);
@@ -491,21 +492,18 @@ public class GameManager : MonoBehaviour
 
         if (ball != null)
         {
-            
             ball.transform.position = paddle.transform.position + Vector3.up * 0.6f;
             ball.paddle = paddle.transform;
             ball.isMainBall = true;
-            ball.SetBricks(bricks); 
+            ball.SetBricks(bricks);
             CustomUpdateManager.Register(ball);
         }
 
-        
         foreach (Transform child in levelRoot)
         {
             Destroy(child.gameObject);
         }
 
-        
         GameObject level = GetAddressableInstance(levelAddressPrefix + currentLevel);
         if (level != null)
         {
@@ -517,22 +515,18 @@ public class GameManager : MonoBehaviour
             Debug.LogError($"❌ Nivel {currentLevel} no se pudo cargar.");
         }
 
-        
         SpawnBricks();
         if (ball != null)
         {
-            ball.SetBricks(bricks); 
+            ball.SetBricks(bricks);
         }
 
-       
         scoreDisplay?.UpdateDisplay(score);
         bricksDisplay?.UpdateDisplay(bricksLeft);
         paddleHitsDisplay?.UpdateDisplay(paddleHits);
 
-        
         pauseLogic = new PauseLogic(this);
         CustomUpdateManager.Register(pauseLogic);
         RegisterParallaxLayers();
     }
-
 }

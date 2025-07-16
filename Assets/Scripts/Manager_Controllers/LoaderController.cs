@@ -1,13 +1,12 @@
-using System.Collections;
 using UnityEngine;
 
 public class LoaderController
 {
-    private readonly ObjectPool _ballPool;
+    private readonly IPool _ballPool;
     private readonly Vector3 _spawnPosition;
     private readonly Vector3 _initialDirection;
 
-    public LoaderController(ObjectPool ballPool, Vector3 spawnPosition, Vector3 initialDirection)
+    public LoaderController(IPool ballPool, Vector3 spawnPosition, Vector3 initialDirection)
     {
         _ballPool = ballPool;
         _spawnPosition = spawnPosition;

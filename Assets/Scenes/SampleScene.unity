@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &69914272 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1770243793785839208, guid: 955d2d9a6f4792b4781e3a5c91ef65e8, type: 3}
-  m_PrefabInstance: {fileID: 7228445784285725386}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6742a2d417e4bec48b20b890562fb1c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &169434734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8068053859377577450, guid: 621940d3c4e1cf44084b62d4ac356460, type: 3}
@@ -149,17 +138,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ffae36979ae7d34abf15e63abefc242, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &512262832 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3428714107700377191, guid: ddb0f41e9101b9540922bfe29dc3c74a, type: 3}
-  m_PrefabInstance: {fileID: 3581680241717905926}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6742a2d417e4bec48b20b890562fb1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &566141463 stripped
@@ -515,17 +493,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ffae36979ae7d34abf15e63abefc242, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2002912940 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2927716273690127040, guid: 3a6146ec8e9e02a4c80e2d3c2dfe09e4, type: 3}
-  m_PrefabInstance: {fileID: 8465665434809587905}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6742a2d417e4bec48b20b890562fb1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2039913863
@@ -1047,7 +1014,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3428714107700377191, guid: ddb0f41e9101b9540922bfe29dc3c74a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1063,11 +1031,11 @@ PrefabInstance:
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: ballPool
       value: 
-      objectReference: {fileID: 69914272}
+      objectReference: {fileID: 0}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: brickPool
       value: 
-      objectReference: {fileID: 2002912940}
+      objectReference: {fileID: 0}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: levelRoot
       value: 
@@ -1079,7 +1047,7 @@ PrefabInstance:
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: powerUpPool
       value: 
-      objectReference: {fileID: 512262832}
+      objectReference: {fileID: 0}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: livesDisplay
       value: 
@@ -1121,9 +1089,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 885117447}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: ballPoolConfig.prefab
+      value: 
+      objectReference: {fileID: 5592865860786204251, guid: b9da94e568ee9c0469c272f9bcdc68ca, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: rowConfigs.Array.size
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: brickPoolConfig.prefab
+      value: 
+      objectReference: {fileID: 5200410115581085957, guid: 91e586a769fe6c6469e7674ac9be0238, type: 3}
+    - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
+      propertyPath: powerUpPoolConfig.prefab
+      value: 
+      objectReference: {fileID: 6504920648491059321, guid: c35ed40bfc07efe47b189b260aed8b42, type: 3}
     - target: {fileID: 1122056885669272384, guid: 59959f18cf5f3d94ebc80839da8da0f0, type: 3}
       propertyPath: assetReferences.Array.size
       value: 19
@@ -1971,7 +1951,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: BallPool
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1770243793785839208, guid: 955d2d9a6f4792b4781e3a5c91ef65e8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2090,7 +2071,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2927716273690127040, guid: 3a6146ec8e9e02a4c80e2d3c2dfe09e4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

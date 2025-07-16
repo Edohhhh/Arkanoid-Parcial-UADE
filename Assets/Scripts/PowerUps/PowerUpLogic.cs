@@ -6,12 +6,12 @@ public class PowerUpLogic : ICustomUpdate
 {
     public Transform transform;
     public float fallSpeed = 2f;
-    private ObjectPool originPool;
+    private IPool originPool;
 
     public PowerUpEffectSO effect;
     private Transform paddle;
 
-    public void Initialize(Transform tf, ObjectPool pool, PowerUpEffectSO assignedEffect)
+    public void Initialize(Transform tf, IPool pool, PowerUpEffectSO assignedEffect)
     {
         transform = tf;
         originPool = pool;

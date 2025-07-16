@@ -6,8 +6,10 @@ public class BrickInstance
 {
     public GameObject gameObject;
     public BrickLogic logic;
+
     public bool TakeHit() => logic.TakeHit();
-    public BrickInstance(GameObject brickGO, int hits, bool hasPowerUp, ObjectPool powerUpPool, GameObject powerUpPrefab, SetAtlasTile atlas)
+
+    public BrickInstance(GameObject brickGO, int hits, bool hasPowerUp, IPool powerUpPool, GameObject powerUpPrefab, SetAtlasTile atlas)
     {
         gameObject = brickGO;
         logic = new BrickLogic
@@ -16,7 +18,6 @@ public class BrickInstance
             hitsToBreak = hits,
             hasPowerUp = hasPowerUp,
             dropChance = 30f,
-            powerUpPool = powerUpPool,
             powerUpPrefab = powerUpPrefab,
             atlasTile = atlas
         };
@@ -30,7 +31,6 @@ public class BrickInstance
     }
 
     public bool CheckCollision(Vector3 pos, float radius) => logic.CheckCollision(pos, radius);
-
 
     public void DestroyCompletely()
     {

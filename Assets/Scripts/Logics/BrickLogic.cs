@@ -9,7 +9,6 @@ public class BrickLogic
     public bool hasPowerUp = false;
     public GameObject powerUpPrefab;
     public float dropChance = 30f;
-    public ObjectPool powerUpPool;
     public SetAtlasTile atlasTile;
 
     public void ConfigureAtlas()
@@ -56,14 +55,7 @@ public class BrickLogic
                 float chance = Random.Range(0f, 100f);
                 if (chance <= dropChance)
                 {
-                    if (powerUpPool != null)
-                    {
-                        GameManager.Instance.TrySpawnPowerUp(transform.position);
-                    }
-                    else
-                    {
-                        Object.Instantiate(powerUpPrefab, transform.position, Quaternion.Euler(90f, 0f, 0f));
-                    }
+                    GameManager.Instance.TrySpawnPowerUp(transform.position);
                 }
             }
 
